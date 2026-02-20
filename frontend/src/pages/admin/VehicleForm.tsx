@@ -6,7 +6,6 @@ import { z } from 'zod'
 import { Save, ArrowLeft, Upload, X, Plus } from 'lucide-react'
 import { Input, Select, Textarea, Button, Card, CardContent, CardHeader } from '@/components/ui'
 import { vehicleService } from '@/services/vehicleService'
-import type { Vehicle } from '@/types'
 
 const vehicleSchema = z.object({
   brand: z.string().min(1, 'Marca obrigatoria'),
@@ -79,8 +78,22 @@ export function AdminVehicleForm() {
       vehicleService.getById(id)
         .then((vehicle) => {
           reset({
-            ...vehicle,
+            brand: vehicle.brand,
+            model: vehicle.model,
+            version: vehicle.version || undefined,
+            year: vehicle.year,
             yearModel: vehicle.yearModel || vehicle.year,
+            price: vehicle.price,
+            mileage: vehicle.mileage,
+            fuel: vehicle.fuel,
+            transmission: vehicle.transmission,
+            bodyType: vehicle.bodyType || undefined,
+            color: vehicle.color || undefined,
+            doors: vehicle.doors || undefined,
+            plate: vehicle.plate || undefined,
+            description: vehicle.description || undefined,
+            condition: vehicle.condition,
+            featured: vehicle.featured,
           })
           setImages(vehicle.images || [])
           setOptionals(vehicle.optionals?.map(o => o.name) || [])

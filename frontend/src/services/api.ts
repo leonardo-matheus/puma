@@ -1,4 +1,4 @@
-const API_URL = '/api'
+const API_URL = 'https://pumamultimarcas.great-site.net/api'
 
 class ApiError extends Error {
   constructor(public status: number, message: string) {
@@ -13,9 +13,7 @@ async function request<T>(
 ): Promise<T> {
   const token = localStorage.getItem('auth-token')
 
-  const headers: HeadersInit = {
-    ...options.headers,
-  }
+  const headers: Record<string, string> = {}
 
   if (!(options.body instanceof FormData)) {
     headers['Content-Type'] = 'application/json'

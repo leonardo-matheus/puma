@@ -4,6 +4,7 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
+  base: '/puma/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -23,7 +24,8 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: 'dist',
+    outDir: '../docs',
+    emptyOutDir: true,
     assetsDir: 'assets',
   },
 })

@@ -4,7 +4,17 @@
  */
 
 // Habilitar CORS
-header('Access-Control-Allow-Origin: *');
+$allowedOrigins = [
+    'https://leonardo-matheus.github.io',
+    'http://localhost:3000',
+    'http://localhost:5173',
+];
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if (in_array($origin, $allowedOrigins)) {
+    header("Access-Control-Allow-Origin: $origin");
+} else {
+    header('Access-Control-Allow-Origin: https://leonardo-matheus.github.io');
+}
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 header('Access-Control-Allow-Credentials: true');

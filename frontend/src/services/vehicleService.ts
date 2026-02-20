@@ -14,6 +14,10 @@ function buildQueryString(filters: FilterOptions): string {
   return queryString ? `?${queryString}` : ''
 }
 
+type VehicleInput = Omit<Partial<Vehicle>, 'optionals'> & {
+  optionals?: { name: string }[]
+}
+
 export const vehicleService = {
   getAll: (filters: FilterOptions = {}) =>
     api.get<Vehicle[]>(`/vehicles${buildQueryString(filters)}`),
@@ -21,10 +25,10 @@ export const vehicleService = {
   getById: (id: string) =>
     api.get<Vehicle>(`/vehicles/${id}`),
 
-  create: (data: Partial<Vehicle>) =>
+  create: (data: VehicleInput) =>
     api.post<Vehicle>('/vehicles', data),
 
-  update: (id: string, data: Partial<Vehicle>) =>
+  update: (id: string, data: VehicleInput) =>
     api.put<Vehicle>(`/vehicles/${id}`, data),
 
   delete: (id: string) =>

@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Search, Filter, X, SlidersHorizontal } from 'lucide-react'
+import { Search, Filter, X, SlidersHorizontal, Car } from 'lucide-react'
 import { VehicleCard } from '@/components/VehicleCard'
 import { Input, Select, Button } from '@/components/ui'
 import { vehicleService } from '@/services/vehicleService'
