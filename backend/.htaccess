@@ -1,0 +1,16 @@
+RewriteEngine On
+RewriteBase /
+
+# API routes - redirecionar para api/index.php
+RewriteRule ^api/(.*)$ api/index.php [QSA,L]
+
+# Uploads - permitir acesso direto
+RewriteCond %{REQUEST_URI} ^/uploads/
+RewriteRule ^uploads/(.*)$ uploads/$1 [L]
+
+# SPA fallback - tudo que não for arquivo ou pasta vai para index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteCond %{REQUEST_URI} !^/uploads/
+RewriteRule ^(.*)$ index.html [L]

@@ -1,0 +1,16 @@
+RewriteEngine On
+RewriteBase /api/
+
+# Permitir arquivos e diretórios existentes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirecionar todas as requisições para index.php
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Configurações PHP
+<IfModule mod_php.c>
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 60
+</IfModule>
