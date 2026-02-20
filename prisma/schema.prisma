@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Vehicle {
+  id            String   @id @default(cuid())
+  brand         String
+  model         String
+  version       String?
+  year          Int
+  yearModel     Int?
+  price         Float
+  mileage       Int
+  fuel          String
+  transmission  String
+  bodyType      String?
+  color         String?
+  doors         Int?
+  plate         String?
+  description   String?
+  condition     String   @default("used")
+  featured      Boolean  @default(false)
+  sold          Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  images        VehicleImage[]
+  optionals     VehicleOptional[]
+}
+
+model VehicleImage {
+  id        String   @id @default(cuid())
+  url       String
+  order     Int      @default(0)
+  vehicleId String
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model VehicleOptional {
+  id        String   @id @default(cuid())
+  name      String
+  vehicleId String
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  message   String
+  vehicleId String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Evaluation {
+  id           String   @id @default(cuid())
+  name         String
+  email        String
+  phone        String
+  brand        String
+  model        String
+  year         Int
+  mileage      Int
+  description  String?
+  status       String   @default("pending")
+  createdAt    DateTime @default(now())
+}
+
+model Settings {
+  id               String @id @default("settings")
+  companyName      String @default("Puma Multimarcas")
+  description      String @default("Revendedora de confiança de Carros de Matão e região")
+  email            String @default("pumamultimarcas@yahoo.com")
+  phone            String @default("(16) 2016-2615")
+  whatsapp         String @default("(16) 99253-7016")
+  address          String @default("Av. Rincão, 471 – Jardim Buscardi, Matão – SP, 15991-210")
+  workingHours     String @default("Segunda a Sexta: 09:00 às 18:00 | Sábado: 09:00 às 13:00")
+  facebook         String @default("https://www.facebook.com/PumaMultimarcas")
+  instagram        String @default("https://www.instagram.com/puma_multimarcas_")
+  logoUrl          String?
+  bannerUrl        String?
+}
+
+model Seller {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  whatsapp  String
+  active    Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Banner {
+  id        String   @id @default(cuid())
+  title     String?
+  subtitle  String?
+  imageUrl  String
+  link      String?
+  active    Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
